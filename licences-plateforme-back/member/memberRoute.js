@@ -4,7 +4,7 @@ let router = express.Router();
 const authUser = require('../middlewares/authUser.js')
 const authAdmin = require('../middlewares/authAdmin.js')
 const licenceGuard= require('../middlewares/licenceGuard.js')
-router.post('',authAdmin,memberController.addMember)
+router.post('',memberController.addMember)
 router.get('',authAdmin,memberController.getAllmembers)
 router.delete('/:idMember',authAdmin,memberController.deleteMember)
 router.put('/:idMember',authAdmin,memberController.updateMember)

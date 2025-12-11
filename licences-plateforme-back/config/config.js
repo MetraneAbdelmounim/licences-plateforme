@@ -12,18 +12,18 @@ module.exports = {
   HOST_PY: (process.env.NODE_ENV=="production")?"flask-service":"127.0.0.1",
   DATE_Licence : new Date('2026-09-01'),
   mailOptions : {
-        from:  (process.env.NODE_ENV=="production")? 'notifications@innovationmi8.com' : 'postmaster@sandbox3976616a1044434c8376786625419e21.mailgun.org'  ,
-        to:  (process.env.NODE_ENV=="production")? ['dgagnon@innovationmi8.com','yberayeteb@innovationmi8.com','berayeteb.younes@gmail.com','metranea7@gmail.com']:'abdelmounim.metrane@gmail.com',
+        from:  (process.env.NODE_ENV=="production")? 'test@axians.ma' : 'test@axians.ma'  ,
+        to:  (process.env.NODE_ENV=="production")? []:'abdelmounim.metrane@gmail.com',
     },
   transporter:{
     host:(process.env.NODE_ENV=="production")? 'innovationmi8-com.mail.protection.outlook.com' : 'smtp.mailgun.org',
-    port:(process.env.NODE_ENV=="production")? 25 : 465,
+    port:(process.env.NODE_ENV=="production")? 25 : 587,
     auth:(process.env.NODE_ENV=="production")? null : {
         user: 'postmaster@sandbox3976616a1044434c8376786625419e21.mailgun.org',
         pass: 'Axians@2024'
     }  
   },
-  schedule:(process.env.NODE_ENV=="production")? '*/15 * * * *' : '*/2 * * * *',
+  schedule:(process.env.NODE_ENV=="production")? '*/15 * * * *' : '*/1 * * * *',
   reload_midnight : false
 
 }
