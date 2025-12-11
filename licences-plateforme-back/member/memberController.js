@@ -1,0 +1,145 @@
+const express = require('express');
+const router = express.Router();
+const Member = require('./member.js');
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+
+module.exports = {
+    addMember: function (req, res) {
+        console.log(req.body);
+        
+        const {username,isAdmin}=req.body
+        Member.findOne({username:username},(err,member)=>{
+            if(member) return res.status(400).json("Utilisateur déja existe ! ")
+            const password = username.split('@')[0];
+            bcrypt.hash(password, 10)
+                .then(hash => {
+                    const id = new mongoose.Types.ObjectId()
+                    const member = new Member({
+                        _id: id,
+                        password: hash,
+                        actif:false,
+                        ...req.body
+                    });
+
+                   member.save(member)
+                        .then(async () =>{
+                        
+                            res.status(201).json({ message: 'Un compte Utilisateur a été créé avec succés !' })
+                        } )
+                        .catch(error =>{
+                                console.log(error)
+                            res.status(400).send({ error })
+                        }
+                        );
+                })
+                .catch(error => res.status(500).send({ error })
+                );
+        })
+    },
+    getAllmembers : function (req,res){
+        Member.find().then(members=>{
+            if(members) res.status(200).json(members);
+        }).catch(err=>{
+            if(err) res.status(500).send('error : '+err);
+        })
+    },
+    deleteMember: function (req,res){
+            Member.findOne({_id: req.params.idMember})
+                .then( (member) => {
+                    Member.deleteOne({ _id: member._id }).then(
+                        () => {
+    
+                            res.status(200).json({
+                                message: "L'Utilisateur a été supprimé avec succés"
+                            });
+                        }
+                    ).catch(
+                        (error) => {
+                            res.status(400).json({
+                                error: error
+                            });
+                        }
+                    );
+                })
+                .catch(error => res.status(500).send(error ));
+    },
+    updateMember: function (req,res){
+        
+            Member.findOne({_id: req.params.idMember})
+                .then((member) => {
+                    
+                    
+                    Member.updateOne({ _id: member._id }, { ...req.body, _id: member._id })
+                        .then(() =>{
+    
+                            res.status(200).json({ message: "L'utilisateur' a été modifé avec succés !"})
+                        } )
+                        .catch(error =>{
+                            res.status(400).json({ error })
+                        } );
+                })
+                .catch(error => {
+    
+                    res.status(400).send(error)
+                });
+    
+     },
+    changePassword: function (req, res) {
+
+        Member.findOne({ _id: req.params.idMember })
+            .then((member) => {
+
+                if (req.body.newPass != req.body.confirmedPass) return res.status(400).json("Unmatch password")
+
+                bcrypt.hash(req.body.newPass, 10)
+                    .then(hash => {
+
+                        Member.updateOne({ _id: member._id }, { password:hash, _id: member._id })
+                    .then(() => {
+
+                        res.status(200).json({ message: "Votre mot de passe a été modifé avec succés !" })
+                    })
+                    .catch(error => {
+                        res.status(400).json({ error })
+                    });
+                    })
+                    .catch(error => res.status(500).send({ error })
+                    );
+
+                
+            })
+            .catch(error => {
+
+                res.status(400).send(error)
+            });
+    },
+    changeNotification: function (req,res){
+        
+            Member.findOne({_id: req.params.idMember})
+                .then((member) => {
+                    
+                    
+                    Member.updateOne({ _id: member._id }, { ...req.body, _id: member._id })
+                        .then(() =>{
+                            if(req.body.notification){
+                               res.status(200).json({ message: `Les notifications pour ${member.username} ont été activé`})
+
+                            }
+                            else{
+                                res.status(200).json({ message: `Les notifications pour ${member.username} ont été désactivé`})
+                            }
+                              
+                        } )
+                        .catch(error =>{
+                            res.status(400).json({ error })
+                        } );
+                })
+                .catch(error => {
+    
+                    res.status(400).send(error)
+                });
+    
+     },
+}
