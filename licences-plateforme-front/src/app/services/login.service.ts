@@ -17,6 +17,7 @@ export class LoginService {
   // @ts-ignore
   token : string;
   private authStatusListener = new Subject<boolean>();
+  private isPasswordChanged = false;
   private isAuthenticated = false;
   redirectUrl: string="";
   private tokenTimer: any;
@@ -30,12 +31,15 @@ export class LoginService {
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
+  getPasswordChangerListener(){
+    return this.isPasswordChanged
+  }
   getAuthStatus(){
     return this.isAuthenticated;
   }
   signIn(username : String, password : String) {
     const authData = {username : username, password : password};
-    this.http.post<{token : string, expiresIn : number, memberId : string,role : string,message:string}>(
+    this.http.post<{token : string, expiresIn : number, memberId : string,role : string,message:string,isPasswordChanged:boolean}>(
       BACKEND_URL+'auth/signin',authData).subscribe((result)=>{
       
         
@@ -60,6 +64,9 @@ export class LoginService {
 
         this.saveAuthData(token,expirationDate,result.memberId);
         this.authStatusListener.next(true);
+        
+        
+        this.isPasswordChanged=result.isPasswordChanged
         this.isAuthenticated = true;
         this.router.navigate(['clients']);
       }

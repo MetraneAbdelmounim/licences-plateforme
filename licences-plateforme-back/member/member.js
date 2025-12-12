@@ -10,6 +10,7 @@ const memberSchema = mongoose.Schema({
     isAdmin : {type:Boolean,required:true,default:false},
     actif:{type: Boolean,required:false,default:false},
     notification:{type: Boolean,required:false,default:false},
+    isPasswordChanged:{type: Boolean,required:false,default:false},
 
 });
 

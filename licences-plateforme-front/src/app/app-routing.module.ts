@@ -9,16 +9,17 @@ import { AdminDeviceComponent } from './dashboard/admin-device/admin-device.comp
 import { ChangePasswordComponent } from './dashboard/change-password/change-password.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminGuardService } from './services/admin-guard.service';
+import { PasswordChangedGuardService } from './services/password-changed-guard.service';
 
 
 
 export const routes: Routes = [
   {path:'' ,component: LoginComponent},
-  {path:'clients' ,component: ClientsComponent,canActivate:[AuthGuardService]},
-  {path:'clients/:id/dashbord' ,component: DashboardComponent,canActivate:[AuthGuardService]},
-   {path:'dashbord/members' ,component: AdminMemberComponent,canActivate:[AuthGuardService,AdminGuardService]},
-   {path:'dashbord/clients' ,component: AdminClientComponent,canActivate:[AuthGuardService,AdminGuardService]},
-   {path:'dashbord/devices' ,component: AdminDeviceComponent,canActivate:[AuthGuardService,AdminGuardService]},
+  {path:'clients' ,component: ClientsComponent,canActivate:[PasswordChangedGuardService,AuthGuardService]},
+  {path:'clients/:id/dashbord' ,component: DashboardComponent,canActivate:[PasswordChangedGuardService,AuthGuardService]},
+   {path:'dashbord/members' ,component: AdminMemberComponent,canActivate:[PasswordChangedGuardService,AuthGuardService,AdminGuardService]},
+   {path:'dashbord/clients' ,component: AdminClientComponent,canActivate:[PasswordChangedGuardService,AuthGuardService,AdminGuardService]},
+   {path:'dashbord/devices' ,component: AdminDeviceComponent,canActivate:[PasswordChangedGuardService,AuthGuardService,AdminGuardService]},
    {path:'dashbord/change-password' ,component: ChangePasswordComponent,canActivate:[AuthGuardService]},
   {path:'**', redirectTo:'clients'}
 

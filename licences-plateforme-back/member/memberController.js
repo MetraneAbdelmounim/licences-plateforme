@@ -96,7 +96,7 @@ module.exports = {
                 bcrypt.hash(req.body.newPass, 10)
                     .then(hash => {
 
-                        Member.updateOne({ _id: member._id }, { password:hash, _id: member._id })
+                        Member.updateOne({ _id: member._id }, { password:hash, _id: member._id,isPasswordChanged:true })
                     .then(() => {
 
                         res.status(200).json({ message: "Votre mot de passe a été modifé avec succés !" })

@@ -30,6 +30,7 @@ module.exports = {
                                         message:"Authentification Réussite",
                                         memberId: member._id,
                                         isAdmin : member.isAdmin,
+                                        isPasswordChanged : member.isPasswordChanged,
                                         token: jwt.sign(
                                             { userId: member._id ,isAdmin:member.isAdmin,username:member.username},
                                             config.secret_token_key,
