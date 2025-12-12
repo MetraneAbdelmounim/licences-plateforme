@@ -17,7 +17,7 @@ export class ChangePasswordComponent {
   // @ts-ignore
   private authListenerSub : Subscription;
   memberIsAuthenticated : boolean = false;
-  
+  isPasswordChanged : boolean = false
   memberConnected : any
 // @ts-ignore
   idMember:string
@@ -35,6 +35,7 @@ export class ChangePasswordComponent {
           this.memberService.userFromTokenSubject.asObservable().subscribe((connectedMember:any)=>{
 
             this.idMember= connectedMember.member._id
+            this.isPasswordChanged=connectedMember.member.isPasswordChanged
     
           
           })
@@ -48,9 +49,10 @@ export class ChangePasswordComponent {
     if(this.memberIsAuthenticated) {
       this.memberService.getMemberFromToken(this.loginService.getToken())
       this.memberService.userFromTokenSubject.asObservable().subscribe((connectedMember:any)=>{
-
-      
+       
+        
         this.idMember= connectedMember.member._id
+        this.isPasswordChanged=connectedMember.member.isPasswordChanged
         
 
       })
