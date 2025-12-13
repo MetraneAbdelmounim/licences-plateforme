@@ -129,7 +129,7 @@ module.exports = {
 
     exportAllDevices: async function (req, res) {
         try {
-            const devices = await Device.find().populate('client'); // populate client to get nom
+             const devices = await Device.find().populate('client');
 
             const workbook = new excelJS.Workbook();
             const worksheet = workbook.addWorksheet('devices');
@@ -142,17 +142,19 @@ module.exports = {
                 { header: 'SDate(mm/dd/yyyy)', key: 'startDate', width: 20 },
                 { header: 'EDate(mm/dd/yyyy)', key: 'endDate', width: 20 },
                 { header: 'Client', key: 'client', width: 30 },
-                { header: 'Status', key: 'status', width: 20 } // New column
+                { header: 'Status', key: 'status', width: 20 }
             ];
 
             const flattenedData = devices.map(device => {
                 const now = new Date();
-                const end = new Date(device.endDate);
+                const end = device.endDate ? new Date(device.endDate) : null;
                 const sixMonthsFromNow = new Date();
                 sixMonthsFromNow.setMonth(sixMonthsFromNow.getMonth() + 6);
 
                 let status = '';
-                if (end < now) {
+                if (!end) {
+                    status = 'Unknown';
+                } else if (end < now) {
                     status = 'Expired';
                 } else if (end <= sixMonthsFromNow) {
                     status = 'Soon to expire';
@@ -173,6 +175,41 @@ module.exports = {
             });
 
             worksheet.addRows(flattenedData);
+
+            // Color cells based on status
+            worksheet.eachRow((row, rowNumber) => {
+                if (rowNumber === 1) return; // skip header
+                const statusCell = row.getCell('status');
+                switch (statusCell.value) {
+                    case 'Expired':
+                        statusCell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FFFFCDD2' } // red
+                        };
+                        break;
+                    case 'Soon to expire':
+                        statusCell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FFFFF9C4' } // orange
+                        };
+                        break;
+                    case 'Valid':
+                        statusCell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FFC8E6C9' } // green
+                        };
+                        break;
+                    default:
+                        statusCell.fill = {
+                            type: 'pattern',
+                            pattern: 'solid',
+                            fgColor: { argb: 'FFB0B0B0' } // gray
+                        };
+                }
+            });
 
             res.setHeader(
                 'Content-Type',
