@@ -31,9 +31,9 @@
                 <i class="fas fa-download mr-2"></i> Exporter
               </button>
 
-              
+
               <!-- Toggle Switch -->
-              
+
             </div>
           </div>
         </div>
@@ -70,70 +70,135 @@
 
                 <div class="card-content">
                   <!-- Desktop Table -->
+                  <!-- Desktop Table (Devices) -->
                   <div class="hidden md:block overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                      <thead class="!bg-blue-600 text-white">
-                        <tr>
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-widerr">Reference</th>
-                      
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Vendor</th>
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">S/N</th>
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Client</th>
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">SDate</th>
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">EDate</th>
-                          <th class="px-5 py-3 border-b-2 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let device of devices | filterBy: ['serialNumber']:term | paginate: {id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page}">
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ device.reference }}</td>
-                          
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ device.vendor }}</td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ device.serialNumber }}</td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-  {{ getClientName(device) }}
-</td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ device.startDate | date: 'dd-MM-yyyy' }}</td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ device.endDate | date: 'dd-MM-yyyy' }}</td>
-                          <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            <i (click)="onFitchDevice(device)" title="Modifier" class="fa cursor-pointer fa-edit"></i>
-                            <i (click)="openDeletedModal(device._id)" title="Supprimer" class="fa cursor-pointer fa-remove ml-5"></i>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-100">
+                      <table class="min-w-full text-sm text-gray-700">
 
-                  <!-- Mobile Cards -->
-                  <div class="md:hidden space-y-4">
-                    <div *ngFor="let device of devices | filterBy: ['serialNumber']:term | paginate: {id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page}" class="bg-white shadow rounded-lg p-4 border border-gray-200">
-                      <div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">Reference</span><p class="text-gray-800">{{ device.reference }}</p></div>
-                      <div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">Vendor</span><p class="text-gray-800">{{ device.vendor }}</p></div>
-                      <div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">S/N</span><p class="text-gray-800">{{ device.serialNumber }}</p></div>
-                      <div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">Client</span><p class="text-gray-800" >{{ getClientName(device) }}</p></div>
-                      <div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">SDate</span><p class="text-gray-800">{{ device.startDate | date: 'dd-MM-yyyy' }}</p></div>
-                      <div class="mb-2"><span class="text-xs font-semibold text-gray-500 uppercase">EDate</span><p class="text-gray-800">{{ device.endDate | date: 'dd-MM-yyyy' }}</p></div>
-                      <div class="mb-2">
-                        <span class="text-xs font-semibold text-gray-500 uppercase">Actions</span>
-                        <div class="mt-1">
-                          <i (click)="onFitchDevice(device)" title="Modifier" class="fa cursor-pointer fa-edit"></i>
-                          <i (click)="openDeletedModal(device._id)" title="Supprimer" class="fa cursor-pointer fa-remove ml-5"></i>
-                        </div>
-                      </div>
+                        <!-- Table Header -->
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                          <tr>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">
+                              Reference</th>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">Vendor
+                            </th>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">S/N</th>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">Client
+                            </th>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">SDate
+                            </th>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">EDate
+                            </th>
+                            <th class="px-6 py-4 text-left font-semibold text-gray-600 uppercase tracking-wide">Actions
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <!-- Table Body -->
+                        <tbody class="divide-y divide-gray-100">
+                          <tr
+                            *ngFor="let device of devices | filterBy: ['serialNumber']: term | paginate: { id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page }"
+                            class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 font-medium text-gray-900">{{ device.reference }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ device.vendor }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ device.serialNumber }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ getClientName(device) }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ device.startDate | date: 'dd-MM-yyyy' }}</td>
+                            <td class="px-6 py-4 text-gray-600">{{ device.endDate | date: 'dd-MM-yyyy' }}</td>
+                            <td class="px-6 py-4">
+                              <div class="flex items-center gap-4">
+                                <i (click)="onFitchDevice(device)" title="Modifier"
+                                  class="fa fa-edit cursor-pointer text-blue-600 hover:text-blue-800"></i>
+                                <i (click)="openDeletedModal(device._id)" title="Supprimer"
+                                  class="fa fa-remove cursor-pointer text-red-600 hover:text-red-800"></i>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+
+                      </table>
                     </div>
                   </div>
+
+
+                  <!-- Mobile Cards -->
+                  <!-- Mobile Devices Cards (Modern UX) -->
+                  <div class="md:hidden space-y-4">
+                    <div *ngFor="let device of 
+      devices 
+      | filterBy: ['serialNumber']: term 
+      | paginate: { id:'listing_pagination', itemsPerPage: itemsPerPage, currentPage: page }" class="bg-white rounded-2xl p-4 shadow-md border border-gray-100
+           transition-all duration-200 active:scale-[0.98]">
+
+                      <!-- Header -->
+                      <div class="flex items-start justify-between">
+                        <div>
+                          <!-- Reference -->
+                          <h3 class="text-base font-semibold text-gray-900">
+                            {{ device.reference }}
+                          </h3>
+
+                          <!-- Vendor + Serial -->
+                          <div class="mt-1 text-sm text-gray-500">
+                            {{ device.vendor }} · {{ device.serialNumber }}
+                          </div>
+
+                          <!-- Client -->
+                          <div class="flex items-center gap-1 mt-1 text-sm text-gray-500">
+                            <i class="fas fa-building text-xs text-gray-400"></i>
+                            <span>{{ getClientName(device) }}</span>
+                          </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center gap-3 text-gray-400">
+                          <i (click)="onFitchDevice(device)"
+                            class="fa fa-edit cursor-pointer hover:text-blue-600 transition" title="Modifier">
+                          </i>
+                          <i (click)="openDeletedModal(device._id)"
+                            class="fa fa-trash cursor-pointer hover:text-red-600 transition" title="Supprimer">
+                          </i>
+                        </div>
+                      </div>
+
+                      <!-- Divider -->
+                      <div class="my-3 border-t border-gray-100"></div>
+
+                      <!-- Dates + Status -->
+                      <div class="flex items-center justify-between text-sm">
+                        <div class="text-gray-500">
+                          <span class="block">Start</span>
+                          <span class="font-medium text-gray-800">
+                            {{ device.startDate | date:'dd-MM-yyyy' }}
+                          </span>
+                        </div>
+
+                        <div class="text-gray-500 text-right">
+                          <span class="block">End</span>
+                          <span class="font-medium text-gray-800">
+                            {{ device.endDate | date:'dd-MM-yyyy' }}
+                          </span>
+                        </div>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
 
             <!-- Pagination -->
             <div class="section main-section mt-4">
-              <pagination-controls *ngIf="devices.length > 0" class="paginationforum" id="listing_pagination" (pageChange)="page = $event">
+              <pagination-controls *ngIf="devices.length > 0" class="paginationforum" id="listing_pagination"
+                (pageChange)="page = $event">
               </pagination-controls>
             </div>
           </div>
         </section>
- <div class="bg-white ">
+        <div class="bg-white ">
           <div class="max-w-md mx-auto rounded-lg overflow-hidden md:max-w-xl">
             <div class="md:flex">
               <div class="w-full p-3">
@@ -165,101 +230,122 @@
                 </div>
               </div>
             </div>
-        <!-- Delete Modal -->
-        <div id="delete-modal-device" tabindex="-1"
-  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-  <div class="relative p-4 w-full max-w-md max-h-full">
-    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-      <button type="button"
-        class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-        (click)="deletedModal?.hide()">
-        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-        </svg>
-        <span class="sr-only">Close modal</span>
-      </button>
-      <div class="p-4 md:p-5 text-center">
-        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" fill="none" viewBox="0 0 20 20">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-          Vous êtes sûr de supprimer le device sélectionné ?
-        </h3>
-        <button type="button" (click)="deleteDevice(deletedDeviceId); deletedModal?.hide()"
-          data-modal-hide="delete-modal-member"
-          class="cursor-pointer bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-          Oui, je suis sûr
-        </button>
-        <button type="button" (click)="deletedModal?.hide()" data-modal-hide="delete-modal-member"
-          class="cursor-pointer py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-          Non, annuler
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-        <!-- CRUD Modal -->
-        <div id="crud-modal-device" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-          <div class="relative p-4 w-full max-w-md max-h-full">
-            <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white" *ngIf="type!=='Edit'">Ajouter un nouveau Device</h3>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white" *ngIf="type==='Edit'">Modifier un Device</h3>
-                <button type="button" data-modal-hide="crud-modal-device" (click)="crudModal?.hide()"
-          class="cursor-pointer text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
-          <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
+            <!-- Delete Modal -->
+            <div id="delete-modal-device" tabindex="-1"
+              class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+              <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                  <button type="button"
+                    class="cursor-pointer absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    (click)="deletedModal?.hide()">
+                    <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                  </button>
+                  <div class="p-4 md:p-5 text-center">
+                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" fill="none"
+                      viewBox="0 0 20 20">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                      Vous êtes sûr de supprimer le device sélectionné ?
+                    </h3>
+                    <button type="button" (click)="deleteDevice(deletedDeviceId); deletedModal?.hide()"
+                      data-modal-hide="delete-modal-member"
+                      class="cursor-pointer bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                      Oui, je suis sûr
+                    </button>
+                    <button type="button" (click)="deletedModal?.hide()" data-modal-hide="delete-modal-member"
+                      class="cursor-pointer py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                      Non, annuler
+                    </button>
+                  </div>
+                </div>
               </div>
-              <form #f="ngForm" (ngSubmit)="onAddDevice(f, editDevice, devices)" class="p-4 md:p-5 grid gap-4">
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reference <span class="text-red-500">*</span></label>
-                  <input type="text" name="reference" ngModel [ngModel]="type==='Edit'? editDevice.reference : ''" required placeholder="Reference"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                  <input type="text" name="description" ngModel [ngModel]="type==='Edit'? editDevice.description : ''" placeholder="Description"
-                    class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vendor  <span class="text-red-500">*</span></label>
-                  <input type="text" name="vendor" required ngModel [ngModel]="type==='Edit'? editDevice.vendor : ''" placeholder="Vendor"
-                    class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial Number  <span class="text-red-500">*</span></label>
-                  <input type="text" name="serialNumber" required ngModel [ngModel]="type==='Edit'? editDevice.serialNumber : ''" placeholder="Serial Number"
-                    class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Client <span class="text-red-500">*</span></label>
-                  <select name="client" ngModel [ngModel]="type==='Edit'? getClientId(editDevice) : ''" required class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
-                    <option value="" disabled selected>--Please choose a client--</option>
-                    <option *ngFor="let client of clients" [value]="client._id">{{ client.nom }}</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date  <span class="text-red-500">*</span></label>
-                  <input type="date" name="startDate" required ngModel [ngModel]="type==='Edit'? formatDateForInput(editDevice.startDate) : ''" class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date  <span class="text-red-500">*</span></label>
-                  <input type="date" name="endDate" required ngModel [ngModel]="type==='Edit'? formatDateForInput(editDevice.endDate) : ''" class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
-                </div>
-                <button type="submit" [disabled]="f.invalid" class="bg-blue-700 text-white px-5 py-2.5 rounded-lg">Enregistrer</button>
-              </form>
             </div>
+
+            <!-- CRUD Modal -->
+            <div id="crud-modal-device" tabindex="-1" aria-hidden="true"
+              class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+              <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+                  <div
+                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white" *ngIf="type!=='Edit'">Ajouter un
+                      nouveau Device</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white" *ngIf="type==='Edit'">Modifier un
+                      Device</h3>
+                    <button type="button" data-modal-hide="crud-modal-device" (click)="crudModal?.hide()"
+                      class="cursor-pointer text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                      <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                      </svg>
+                      <span class="sr-only">Close modal</span>
+                    </button>
+                  </div>
+                  <form #f="ngForm" (ngSubmit)="onAddDevice(f, editDevice, devices)" class="p-4 md:p-5 grid gap-4">
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reference <span
+                          class="text-red-500">*</span></label>
+                      <input type="text" name="reference" ngModel [ngModel]="type==='Edit'? editDevice.reference : ''"
+                        required placeholder="Reference"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+                    </div>
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                      <input type="text" name="description" ngModel
+                        [ngModel]="type==='Edit'? editDevice.description : ''" placeholder="Description"
+                        class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+                    </div>
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vendor <span
+                          class="text-red-500">*</span></label>
+                      <input type="text" name="vendor" required ngModel
+                        [ngModel]="type==='Edit'? editDevice.vendor : ''" placeholder="Vendor"
+                        class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+                    </div>
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial Number <span
+                          class="text-red-500">*</span></label>
+                      <input type="text" name="serialNumber" required ngModel
+                        [ngModel]="type==='Edit'? editDevice.serialNumber : ''" placeholder="Serial Number"
+                        class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+                    </div>
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Client <span
+                          class="text-red-500">*</span></label>
+                      <select name="client" ngModel [ngModel]="type==='Edit'? getClientId(editDevice) : ''" required
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
+                        <option value="" disabled selected>--Please choose a client--</option>
+                        <option *ngFor="let client of clients" [value]="client._id">{{ client.nom }}</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date <span
+                          class="text-red-500">*</span></label>
+                      <input type="date" name="startDate" required ngModel
+                        [ngModel]="type==='Edit'? formatDateForInput(editDevice.startDate) : ''"
+                        class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+                    </div>
+                    <div>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date <span
+                          class="text-red-500">*</span></label>
+                      <input type="date" name="endDate" required ngModel
+                        [ngModel]="type==='Edit'? formatDateForInput(editDevice.endDate) : ''"
+                        class="wbg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+                    </div>
+                    <button type="submit" [disabled]="f.invalid"
+                      class="bg-blue-700 text-white px-5 py-2.5 rounded-lg">Enregistrer</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
-
       </div>
     </div>
-  </div>
-</div>

@@ -2,7 +2,10 @@
     font-size: 25px;
   }
   .fa-remove{
-    color: #c23636;
+    color: #c56565;
+  }
+  .fa-trash{
+    color: #c56565;
   }
   .fa-edit{
     color: #010e50;
