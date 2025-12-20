@@ -24,5 +24,9 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - nginx/server.crt:/etc/ssl/certs/server.crt:ro
+      - nginx/server.key:/etc/ssl/private/server.key:ro
+      - nginx/certs/ca.crt:/etc/ssl/certs/ca.crt:ro
     depends_on:
       - app
