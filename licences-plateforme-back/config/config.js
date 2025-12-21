@@ -24,6 +24,7 @@ module.exports = {
     }  
   },
   mailgun:{
+    SECRET : "efdbf6e7e57652f9093db96369ebe8f7-96164d60-a21abbd3",
     MAILGUN_FROM : "Mailgun Sandbox <postmaster@sandbox3976616a1044434c8376786625419e21.mailgun.org>",
     MAILGUN_DOMAIN : "sandbox3976616a1044434c8376786625419e21.mailgun.org"
 

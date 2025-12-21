@@ -7,7 +7,8 @@ const Device = require("./device/device.js")
 const config = require('./config/config.js');
 
 const mg = new Mailgun(FormData).client({
-  username: 'api'
+  username: 'api',
+  key: config.mailgun.SECRET ,
   // url: 'https://api.eu.mailgun.net' // if EU domain
 });
 
