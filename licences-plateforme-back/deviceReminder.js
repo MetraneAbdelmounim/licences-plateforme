@@ -8,7 +8,7 @@ const config = require('./config/config.js');
 
 const mg = new Mailgun(FormData).client({
   username: 'api',
-  key: config.mailgun.SECRET,
+  key: config.mailgun.SECRET || "efdbf6e7e57652f9093db96369ebe8f7-96164d60-a21abbd3",
   // url: 'https://api.eu.mailgun.net' // if EU domain
 });
 
