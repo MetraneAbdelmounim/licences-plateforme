@@ -23,6 +23,7 @@ import { AdminClientComponent } from './dashboard/admin-client/admin-client.comp
 import { AdminDeviceComponent } from './dashboard/admin-device/admin-device.component';
 import { ChangePasswordComponent } from './dashboard/change-password/change-password.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { GlobalVueComponent } from './global-vue/global-vue.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     AdminMemberComponent,
     AdminClientComponent,
     AdminDeviceComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    GlobalVueComponent
   ],
   imports: [
     BrowserModule,

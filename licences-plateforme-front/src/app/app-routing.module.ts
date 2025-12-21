@@ -10,6 +10,7 @@ import { ChangePasswordComponent } from './dashboard/change-password/change-pass
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminGuardService } from './services/admin-guard.service';
 import { PasswordChangedGuardService } from './services/password-changed-guard.service';
+import { GlobalVueComponent } from './global-vue/global-vue.component';
 
 
 
@@ -19,6 +20,7 @@ export const routes: Routes = [
   {path:'clients/:id/dashbord' ,component: DashboardComponent,canActivate:[PasswordChangedGuardService,AuthGuardService]},
    {path:'dashbord/members' ,component: AdminMemberComponent,canActivate:[PasswordChangedGuardService,AuthGuardService,AdminGuardService]},
    {path:'dashbord/clients' ,component: AdminClientComponent,canActivate:[PasswordChangedGuardService,AuthGuardService,AdminGuardService]},
+   {path:'global-vue' ,component: GlobalVueComponent,canActivate:[PasswordChangedGuardService,AuthGuardService]},
    {path:'dashbord/devices' ,component: AdminDeviceComponent,canActivate:[PasswordChangedGuardService,AuthGuardService,AdminGuardService]},
    {path:'dashbord/change-password' ,component: ChangePasswordComponent,canActivate:[AuthGuardService]},
   {path:'**', redirectTo:'clients'}

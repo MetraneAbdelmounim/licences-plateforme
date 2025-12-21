@@ -80,4 +80,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/clients'])
     
   }
+  globalVue(){
+
+    this.router.navigate(['/global-vue'])
+    
+  }
 }

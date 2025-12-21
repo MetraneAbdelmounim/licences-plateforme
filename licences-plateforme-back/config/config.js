@@ -12,7 +12,7 @@ module.exports = {
   HOST_PY: (process.env.NODE_ENV=="production")?"flask-service":"127.0.0.1",
   DATE_Licence : new Date('2026-09-01'),
   mailOptions : {
-        from:  (process.env.NODE_ENV=="production")? 'test@axians.ma' : 'test@axians.ma'  ,
+        from:  (process.env.NODE_ENV=="production")? 'test@axians.ma' : 'postmaster@sandbox3976616a1044434c8376786625419e21.mailgun.org'  ,
         to:  (process.env.NODE_ENV=="production")? []:'abdelmounim.metrane@gmail.com',
     },
   transporter:{
@@ -22,6 +22,12 @@ module.exports = {
         user: 'postmaster@sandbox3976616a1044434c8376786625419e21.mailgun.org',
         pass: 'Axians@2024'
     }  
+  },
+  mailgun:{
+    API_KEY : "efdbf6e7e57652f9093db96369ebe8f7-96164d60-a21abbd3",
+    MAILGUN_FROM : "Mailgun Sandbox <postmaster@sandbox3976616a1044434c8376786625419e21.mailgun.org>",
+    MAILGUN_DOMAIN : "sandbox3976616a1044434c8376786625419e21.mailgun.org"
+
   },
   schedule:(process.env.NODE_ENV=="production")? '*/15 * * * *' : '*/1 * * * *',
   reload_midnight : false
