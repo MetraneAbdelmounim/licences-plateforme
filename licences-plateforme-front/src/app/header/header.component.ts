@@ -85,4 +85,9 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/global-vue'])
     
   }
+  isUserMenuOpen = false;
+
+toggleUserMenu() {
+  this.isUserMenuOpen = !this.isUserMenuOpen;
+}
 }
