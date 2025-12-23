@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { MemberService } from '../services/member.service';
@@ -65,6 +65,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
+    this.isUserMenuOpen = false;
     this.loginService.logout()
   }
 
@@ -87,7 +88,23 @@ export class HeaderComponent implements OnInit {
   }
   isUserMenuOpen = false;
 
-toggleUserMenu() {
-  this.isUserMenuOpen = !this.isUserMenuOpen;
-}
+  @ViewChild('userMenu') userMenu!: ElementRef;
+
+  toggleUserMenu(event: Event) {
+    event.stopPropagation(); // empêche fermeture immédiate
+    this.isUserMenuOpen = !this.isUserMenuOpen;
+  }
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (
+      this.isUserMenuOpen &&
+      this.userMenu &&
+      !this.userMenu.nativeElement.contains(event.target)
+    ) {
+      this.isUserMenuOpen = false;
+    }
+  }
+
+
+
 }
